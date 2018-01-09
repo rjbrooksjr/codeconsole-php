@@ -1,0 +1,24 @@
+{
+    "name": "rjbrooksjr/codeconsole-php",
+    "description": "Code Console library.",
+    "keywords": ["php"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rich Brooks",
+            "email": "rbrooks@gmail.com"
+        }
+    ],
+    "type": "project",
+    "require": {
+		"php": ">=5.4"
+    },
+	"require-dev": {
+		"phpunit/phpunit": "5.2.*"
+    },
+	"autoload": {
+        "psr-4": {
+            "rjbrooksjr\\": "src/"
+        }
+    }
+}
