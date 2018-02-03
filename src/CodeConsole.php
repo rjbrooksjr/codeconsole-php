@@ -43,7 +43,7 @@ class CodeConsole
             'form_params' => [
                 'key' => self::$apiKey,
                 'type' => $level,
-                'data' => $context,
+                'data' => json_encode($context),
             ]
         ]);
     }
