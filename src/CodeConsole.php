@@ -1,29 +1,43 @@
 <?php namespace rjbrooksjr;
 
 use GuzzleHttp\Client;
-use Psr\Log\LogLevel;
 
 class CodeConsole
 {
     private static $client = null;
     private static $apiKey;
 
+    const LOG = 'log';
+    const ERROR = 'error';
+    const INFO = 'info';
+    const WARN = 'warn';
+
     static public function setApiKey($key) 
     {
         self::$apiKey = $key;
     }
 
-    static public function log($level = LogLevel::INFO, $message, array $context = [])
+    static public function log()
     {
-        self::send($level, $message, $context);
+        self::send(self::LOG, func_get_args());
     }
 
-    static public function error($message, array $context = [])
+    static public function error()
     {
-        self::send(LogLevel::ERROR, $message, $context);
+        self::send(self::ERROR, func_get_args());
     }
 
-    static private function send($level, $message, $context)
+    static public function info()
+    {
+        self::send(self::INFO, func_get_args());
+    }
+
+    static public function warn()
+    {
+        self::send(self::WARN, func_get_args());
+    }
+
+    static private function send($level, $context)
     {
         if (empty(self::$apiKey)) {
             throw new \Exception('Missing API Key');
@@ -36,8 +50,6 @@ class CodeConsole
                 'timeout' => 2,
             ]);
         }
-
-        array_unshift($context, $message);
 
         self::$client->post('api/log', [
             'form_params' => [
